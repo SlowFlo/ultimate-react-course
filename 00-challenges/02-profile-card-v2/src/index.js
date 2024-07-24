@@ -4,27 +4,27 @@ import "./index.css";
 
 const skills = [
   {
-    skill: "JavaScript",
+    name: "JavaScript",
     level: "intermediate",
     color: "yellow",
   },
   {
-    skill: "Python",
+    name: "Python",
     level: "advanced",
     color: "green",
   },
   {
-    skill: "TDD",
+    name: "TDD",
     level: "intermediate",
     color: "red",
   },
   {
-    skill: "Japanese",
+    name: "Japanese",
     level: "intermediate",
     color: "antiquewhite",
   },
   {
-    skill: "React",
+    name: "React",
     level: "beginner",
     color: "blue",
   },
@@ -63,27 +63,25 @@ function SkillList() {
     <div className="skill-list">
       {skills.map((skill) => (
         <Skill
-          name={skill.skill}
-          emoji={
-            skill.level === "advanced"
-              ? "💪"
-              : skill.level === "intermediate"
-                ? "👍"
-                : "👶"
-          }
+          name={skill.name}
+          level={skill.level}
           color={skill.color}
-          index={skill.skill}
+          key={skill.name}
         />
       ))}
     </div>
   );
 }
 
-function Skill(props) {
+function Skill({ name, level, color }) {
   return (
-    <div className="skill" style={{ backgroundColor: props.color }}>
-      <span>{props.name}</span>
-      <span>{props.emoji}</span>
+    <div className="skill" style={{ backgroundColor: color }}>
+      <span>{name}</span>
+      <span>
+        {level === "beginner" && "👶"}
+        {level === "intermediate" && "👍"}
+        {level === "advanced" && "💪"}
+      </span>
     </div>
   );
 }
