@@ -13,11 +13,17 @@ export default function App() {
   // const [test, setTest] = useState({ name: "Jonas" });
 
   function handlePrevious() {
-    if (step > 1) setStep(step - 1);
+    if (step > 1) setStep((s) => s - 1);
   }
 
   function handleNext() {
-    if (step < 3) setStep(step + 1);
+    if (step < 3) {
+      // BAD PRACTICE: only update once
+      // setStep(step + 1);
+      // setStep(step + 1);
+      // GOOD PRACTICE: Always use a callback function when updating based on current state
+      setStep((s) => s + 1);
+    }
 
     // BAD PRACTICE (works here but may not in more complexe situation)
     // test.name = "Fred";
@@ -27,7 +33,7 @@ export default function App() {
 
   return (
     <>
-      <button className="close" onClick={() => setIsOpen(!isOpen)}>
+      <button className="close" onClick={() => setIsOpen((is) => !is)}>
         &times;
       </button>
 
