@@ -13,45 +13,29 @@ function Counter() {
   const [step, setStep] = useState(1);
   const [count, setCount] = useState(0);
 
-  function handleDecreaseStep() {
-    setStep((s) => s - 1);
-  }
-
-  function handleIncreaseStep() {
-    setStep((s) => s + 1);
-  }
-
-  function handleDecreaseCount() {
-    setCount((c) => c - step);
-  }
-
-  function handleIncreaseCount() {
-    setCount((c) => c + step);
-  }
-
-  function getDateStringIn(days) {
-    let now = new Date(Date.now());
-    return new Date(now.setDate(now.getDate() + days)).toDateString();
-  }
+  const date = new Date(Date.now());
+  date.setDate(date.getDate() + count);
 
   return (
     <>
       <div>
-        <button onClick={handleDecreaseStep}>-</button>
-        Step: {step}
-        <button onClick={handleIncreaseStep}>+</button>
+        <button onClick={() => setStep((s) => s - 1)}>-</button>
+        <span>Step: {step}</span>
+        <button onClick={() => setStep((s) => s + 1)}>+</button>
       </div>
+
       <div>
-        <button onClick={handleDecreaseCount}>-</button>
-        Count: {count}
-        <button onClick={handleIncreaseCount}>+</button>
+        <button onClick={() => setCount((c) => c - step)}>-</button>
+        <span>Count: {count}</span>
+        <button onClick={() => setCount((c) => c + step)}>+</button>
       </div>
-      <div>
-        {count === 0 && "Today is "}
-        {count < 0 && -count + " days ago was "}
-        {count > 0 && count + " days from now is "}
-        {getDateStringIn(count)}
-      </div>
+
+      <p>
+        <span>{count === 0 && "Today is "}</span>
+        <span>{count < 0 && Math.abs(count) + " days ago was "}</span>
+        <span>{count > 0 && count + " days from now is "}</span>
+        <span>{date.toDateString()}</span>
+      </p>
     </>
   );
 }
