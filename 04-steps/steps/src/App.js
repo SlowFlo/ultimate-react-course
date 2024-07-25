@@ -25,9 +25,9 @@ export default function App() {
       setStep((s) => s + 1);
     }
 
-    // BAD PRACTICE (works here but may not in more complexe situation)
+    // BAD PRACTICE: works here but may not in more complexe situation
     // test.name = "Fred";
-    // CORRECT WAY
+    // GOOD PRACTICE
     // setTest({ name: "Fred" });
   }
 
