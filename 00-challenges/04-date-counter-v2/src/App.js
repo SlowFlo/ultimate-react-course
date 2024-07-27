@@ -37,6 +37,7 @@ function Counter() {
       <div>
         <button onClick={() => setCount((c) => c - step)}>-</button>
         <input
+          type="text"
           value={count}
           onChange={(e) => setCount(Number(e.target.value))}
         ></input>
@@ -50,9 +51,11 @@ function Counter() {
         <span>{date.toDateString()}</span>
       </p>
 
-      {step !== 1 || count !== 0 ? (
-        <button onClick={handleReset}>Reset</button>
-      ) : null}
+      {(step !== 1 || count !== 0) && (
+        <div>
+          <button onClick={handleReset}>Reset</button>
+        </div>
+      )}
     </>
   );
 }
