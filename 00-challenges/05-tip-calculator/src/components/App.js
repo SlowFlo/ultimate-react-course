@@ -5,39 +5,32 @@ import Reset from "./Reset";
 import { useState } from "react";
 
 export default function App() {
-  const [bill, setBill] = useState(0);
+  const [bill, setBill] = useState("");
   const [userService, setUserService] = useState(0);
   const [friendService, setFriendService] = useState(0);
-  const tip = bill * ((userService + friendService) / 2) / 100;
-  const total = bill + tip;
+  const tip = bill * ((userService + friendService) / 2 / 100);
 
   function handleReset() {
-    setBill(0);
+    setBill("");
     setUserService(0);
     setFriendService(0);
   }
 
   return (
     <>
-      <Bill bill={bill} onBillChange={(e) => setBill(Number(e.target.value))}>
-        How much was the bill?
-      </Bill>
-      <Service
-        service={userService}
-        onServiceSelected={(e) => setUserService(Number(e.target.value))}
-      >
+      <Bill bill={bill} onSetBill={setBill} />
+      <Service service={userService} onServiceSelected={setUserService}>
         How did you like the service?
       </Service>
-      <Service
-        service={friendService}
-        onServiceSelected={(e) => setFriendService(Number(e.target.value))}
-      >
+      <Service service={friendService} onServiceSelected={setFriendService}>
         How did your friend like the service?
       </Service>
-      <Total>
-        You pay ${total} (${bill} + ${tip} tip)
-      </Total>
-      <Reset onReset={handleReset} />
+      {bill > 0 && (
+        <>
+          <Total bill={bill} tip={tip} />
+          <Reset onReset={handleReset} />
+        </>
+      )}
     </>
   );
 }

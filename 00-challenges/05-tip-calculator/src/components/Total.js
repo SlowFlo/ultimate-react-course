@@ -1,3 +1,3 @@
-export default function Total({ children }) {
-  return <h2>{children}</h2>;
+export default function Total({ bill, tip }) {
+  return <h3>You pay ${bill + tip} (${bill} + ${tip} tip)</h3>;
 }
