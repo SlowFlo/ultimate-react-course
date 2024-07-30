@@ -81,6 +81,7 @@ export default function App() {
         <FormSplitBill
           selectedFriend={selectedFriend}
           onSplitBill={handleSplitBill}
+          key={selectedFriend.id}
         />
       )}
     </div>
@@ -112,12 +113,12 @@ function Friend({ friend, onSelection, selectedFriend }) {
 
       {friend.balance < 0 && (
         <p className="red">
-          {friend.name} owes you {Math.abs(friend.balance)}€
+          You owe {friend.name} {Math.abs(friend.balance)}€
         </p>
       )}
       {friend.balance > 0 && (
         <p className="green">
-          You owe {friend.name} {Math.abs(friend.balance)}€
+          {friend.name} owes you {Math.abs(friend.balance)}€
         </p>
       )}
       {friend.balance === 0 && <p>You and {friend.name} are even</p>}
@@ -192,14 +193,14 @@ function FormSplitBill({ selectedFriend, onSplitBill }) {
 
       <label>💰 Bill value</label>
       <input
-        type="text"
+        type="number"
         value={bill}
         onChange={(e) => setBill(Number(e.target.value))}
       />
 
       <label>🧍‍♀️ Your expense</label>
       <input
-        type="text"
+        type="number"
         value={paidByUser}
         onChange={(e) =>
           setPaidByUser(
@@ -209,7 +210,7 @@ function FormSplitBill({ selectedFriend, onSplitBill }) {
       />
 
       <label>👫 {selectedFriend.name}'s expense</label>
-      <input type="text" disabled value={paidByFriend} />
+      <input type="number" disabled value={paidByFriend} />
 
       <label>🤑 Who is paying the bill</label>
       <select
