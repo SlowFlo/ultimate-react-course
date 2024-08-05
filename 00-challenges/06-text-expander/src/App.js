@@ -57,15 +57,6 @@ function TextExpander({
 }) {
   const [isExpanded, setIsExpanded] = useState(expanded);
 
-  // function switchTextExpanded(isExpanded) {
-  //   if (isExpanded) setTextShowing(children);
-  //   else
-  //     setTextShowing(
-  //       textShowing.split(" ").slice(0, collapsedNumWords).join(" ") + "...",
-  //     );
-  //   setIsExpanded(!isExpanded);
-  // }
-
   const buttonStyle = {
     color: buttonColor,
     background: "none",
