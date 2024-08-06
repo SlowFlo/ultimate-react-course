@@ -41,6 +41,7 @@ function Tabbed({ content }) {
       {activeTab <= 2 ? (
         <TabContent
           item={content.at(activeTab)}
+          // without key the component stay with the same number of like and the opened status
           key={content.at(activeTab).summary}
         />
       ) : (
