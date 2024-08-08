@@ -55,6 +55,7 @@ const KEY = "bf811763";
 export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
+  const query = "everything";
 
   // BAD PRACTICE : infinite re-render loop because of
   // the setMovies call at the top level
@@ -66,9 +67,14 @@ export default function App() {
   */
 
   useEffect(function () {
-    fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=everything`)
-      .then((res) => res.json())
-      .then((data) => setMovies(data.Search));
+    async function fetchMovies() {
+      const res = fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`);
+      const data = await res.json();
+      setMovies(data.Search);
+      console.log(data.Search);
+    }
+
+    fetchMovies();
   }, []);
 
   return (
