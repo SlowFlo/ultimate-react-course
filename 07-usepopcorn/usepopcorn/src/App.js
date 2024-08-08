@@ -68,7 +68,9 @@ export default function App() {
 
   useEffect(function () {
     async function fetchMovies() {
-      const res = fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`);
+      const res = await fetch(
+        `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+      );
       const data = await res.json();
       setMovies(data.Search);
       console.log(data.Search);
