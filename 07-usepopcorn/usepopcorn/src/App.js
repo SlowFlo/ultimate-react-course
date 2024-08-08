@@ -50,9 +50,18 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+const KEY = "bf811763";
+
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+
+  // BAD PRACTICE : infinite re-render loop because of
+  // the setMovies call at the top level
+  fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=everything`)
+    .then((res) => res.json())
+    // .then((data) => console.log(data.Search));
+    .then((data) => setMovies(data.Search));
 
   return (
     <>
