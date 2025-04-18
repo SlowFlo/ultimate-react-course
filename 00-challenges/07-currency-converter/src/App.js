@@ -2,39 +2,46 @@
 import { useState, useEffect } from "react";
 
 export default function App() {
-  const [originalValue, setOriginalValue] = useState("");
+  const [originalValue, setOriginalValue] = useState(1);
   const [convertedValue, setConvertedValue] = useState("");
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("USD");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(
     function () {
       const controller = new AbortController();
 
-      async function getConvertion() {
-        try {
-          if (fromCurrency === toCurrency || originalValue === "") {
-            setConvertedValue(originalValue);
-            return;
-          }
+      const delayFetching = setTimeout(() => {
+        async function getConvertion() {
+          try {
+            setIsLoading(true);
 
-          const res = await fetch(
-            `https://api.frankfurter.app/latest?amount=${originalValue}&from=${fromCurrency}&to=${toCurrency}`,
-            { signal: controller.signal },
-          );
-          const json = await res.json();
-          setConvertedValue(() => json.rates[toCurrency]);
-        } catch (err) {
-          if (err.name !== "AbortError") {
-            console.error(err);
+            const res = await fetch(
+              `https://api.frankfurter.app/latest?amount=${originalValue}&from=${fromCurrency}&to=${toCurrency}`,
+              { signal: controller.signal },
+            );
+            const data = await res.json();
+            setConvertedValue(() => data.rates[toCurrency]);
+          } catch (err) {
+            if (err.name !== "AbortError") {
+              console.error(err);
+            }
+          } finally {
+            setIsLoading(false);
           }
         }
-      }
 
-      getConvertion();
+        if (fromCurrency === toCurrency) {
+          return setConvertedValue(originalValue);
+        }
+
+        getConvertion();
+      }, 1000);
 
       return function () {
         controller.abort();
+        clearTimeout(delayFetching);
       };
     },
     [originalValue, fromCurrency, toCurrency],
@@ -42,20 +49,35 @@ export default function App() {
 
   return (
     <div>
-      <input type="text" onChange={(e) => setOriginalValue(e.target.value)} />
-      <select onChange={(e) => setFromCurrency(e.target.value)}>
+      <input
+        type="text"
+        value={originalValue}
+        onChange={(e) => setOriginalValue(Number(e.target.value))}
+        disabled={isLoading}
+      />
+      <select
+        value={fromCurrency}
+        onChange={(e) => setFromCurrency(e.target.value)}
+        disabled={isLoading}
+      >
         <option value="USD">USD</option>
         <option value="EUR">EUR</option>
         <option value="CAD">CAD</option>
         <option value="INR">INR</option>
       </select>
-      <select onChange={(e) => setToCurrency(e.target.value)}>
+      <select
+        value={toCurrency}
+        onChange={(e) => setToCurrency(e.target.value)}
+        disabled={isLoading}
+      >
         <option value="USD">USD</option>
         <option value="EUR">EUR</option>
         <option value="CAD">CAD</option>
         <option value="INR">INR</option>
       </select>
-      <p>{convertedValue}</p>
+      <p>
+        {convertedValue} {toCurrency}
+      </p>
     </div>
   );
 }
