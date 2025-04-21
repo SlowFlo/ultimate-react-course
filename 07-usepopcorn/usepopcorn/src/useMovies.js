@@ -11,7 +11,9 @@ export function useMovies(query) {
   // useEffect only usefull if we want to start searching as soon as the component mount
   useEffect(
     function () {
+      // Doesn't work, the solution is to use useCallback (see later in the course)
       // callback?.();
+      // => const handleCloseMovie = useCallback(() => setSelectedID(null), []);
 
       const controller = new AbortController();
 
