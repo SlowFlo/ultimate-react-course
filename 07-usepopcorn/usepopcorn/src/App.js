@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 import { useMovies } from "./useMovies";
+import { useLocalStorageState } from "./useLocalStorageState";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -12,12 +13,7 @@ export default function App() {
   const [selectedId, setSelectedId] = useState(null);
   const { movies, isLoading, error } = useMovies(query);
 
-  // const [watched, setWatched] = useState([]);
-  const [watched, setWatched] = useState(function () {
-    // Need to be a pure function without any argument
-    const storedValue = localStorage.getItem("watched");
-    return JSON.parse(storedValue) ?? [];
-  });
+  const [watched, setWatched] = useLocalStorageState([], "watched");
 
   // Never call a function directly, because it will be called on every render
   // even if it's value is used only during the initial render
@@ -73,13 +69,6 @@ export default function App() {
     //   JSON.stringify(watched.filter((movie) => movie.imdbID !== id)),
     // );
   }
-
-  useEffect(
-    function () {
-      localStorage.setItem("watched", JSON.stringify(watched));
-    },
-    [watched],
-  );
 
   return (
     <>
