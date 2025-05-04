@@ -3,6 +3,7 @@ import styles from "./Sidebar.module.css";
 import Logo from "./Logo.jsx";
 import AppNav from "./AppNav.jsx";
 import Footer from "./Footer.jsx";
+import { Outlet } from "react-router-dom";
 
 function Sidebar() {
   return (
@@ -10,7 +11,7 @@ function Sidebar() {
       <Logo />
       <AppNav />
 
-      <p>List of cities</p>
+      <Outlet />
 
       <Footer />
     </div>
