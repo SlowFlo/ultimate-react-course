@@ -35,42 +35,6 @@
         "lng": 13.376933665713324
       },
       "id": 98443197
-    },
-    {
-      "cityName": "Saint-Magne",
-      "country": "France",
-      "emoji": "🇫🇷",
-      "date": "2025-05-19T11:43:00.026Z",
-      "notes": "aaaa",
-      "position": {
-        "lat": "44.577467682596634",
-        "lng": "-0.6351868468447598"
-      },
-      "id": 98443198
-    },
-    {
-      "cityName": "Paris",
-      "country": "France",
-      "emoji": "🇫🇷",
-      "date": "2025-05-19T11:44:19.538Z",
-      "notes": "aaa",
-      "position": {
-        "lat": "48.828380141730854",
-        "lng": "2.3655342989465127"
-      },
-      "id": 98443199
-    },
-    {
-      "cityName": "London",
-      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
-      "emoji": "🇬🇧",
-      "date": "2025-05-19T11:46:48.929Z",
-      "notes": "zeds",
-      "position": {
-        "lat": "51.4748762997113",
-        "lng": "0.00021168598965726207"
-      },
-      "id": 98443200
     }
   ]
 }
