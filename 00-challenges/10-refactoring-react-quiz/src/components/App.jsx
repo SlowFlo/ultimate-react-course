@@ -1,6 +1,5 @@
 import Header from "./Header";
 import Main from "./Main";
-import { useEffect } from "react";
 import Loader from "./Loader";
 import Error from "./Error";
 import StartScreen from "./StartScreen";
@@ -18,6 +17,7 @@ export default function App() {
   return (
     <div className="app">
       <Header />
+
       <Main>
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}

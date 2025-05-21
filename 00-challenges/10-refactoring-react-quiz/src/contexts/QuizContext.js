@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useEffect, useReducer } from "react";
-import Error from "../components/Error";
+import { createContext, useContext, useReducer, useEffect } from "react";
+
+const QuizContext = createContext();
 
 const SECS_PER_QUESTION = 30;
 
@@ -55,12 +56,8 @@ function reducer(state, action) {
           state.points > state.highscore ? state.points : state.highscore,
       };
     case "restart":
-      return {
-        ...initialState,
-        questions: state.questions,
-        status: "ready",
-        highscore: state.highscore,
-      };
+      return { ...initialState, questions: state.questions, status: "ready" };
+
     case "tick":
       return {
         ...state,
@@ -73,36 +70,29 @@ function reducer(state, action) {
   }
 }
 
-const QuizContext = createContext();
-
 function QuizProvider({ children }) {
   const [
     { questions, status, index, answer, points, highscore, secondsRemaining },
     dispatch,
   ] = useReducer(reducer, initialState);
 
-  useEffect(
-    function () {
-      fetch("http://localhost:8000/questions")
-        .then((res) => res.json())
-        .then((data) => dispatch({ type: "dataReceived", payload: data }))
-        .catch(() => dispatch({ type: "dataFailed" }));
-    },
-    [dispatch],
-  );
-
   const numQuestions = questions.length;
   const maxPossiblePoints = questions.reduce(
     (prev, cur) => prev + cur.points,
     0,
   );
-  const question = questions[index];
+
+  useEffect(function () {
+    fetch("http://localhost:9000/questions")
+      .then((res) => res.json())
+      .then((data) => dispatch({ type: "dataReceived", payload: data }))
+      .catch((err) => dispatch({ type: "dataFailed" }));
+  }, []);
 
   return (
     <QuizContext.Provider
       value={{
         questions,
-        question,
         status,
         index,
         answer,
@@ -111,6 +101,7 @@ function QuizProvider({ children }) {
         secondsRemaining,
         numQuestions,
         maxPossiblePoints,
+
         dispatch,
       }}
     >
@@ -122,7 +113,7 @@ function QuizProvider({ children }) {
 function useQuiz() {
   const context = useContext(QuizContext);
   if (context === undefined)
-    throw new Error("QuizContext was used outside the QuizProvider");
+    throw new Error("QuizContext was used outside of the QuizProvider");
   return context;
 }
 
