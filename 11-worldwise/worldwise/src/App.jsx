@@ -19,12 +19,21 @@ import SpinnerFullPage from "./components/SpinnerFullPage.jsx";
 // import AppLayout from "./pages/AppLayout.jsx";
 // import Login from "./pages/Login.jsx";
 
-const Homepage = lazy(() => import("./pages/Homepage.jsx"));
-const Product = lazy(() => import("./pages/Product.jsx"));
-const Pricing = lazy(() => import("./pages/Pricing.jsx"));
-const Login = lazy(() => import("./pages/Login.jsx"));
-const AppLayout = lazy(() => import("./pages/AppLayout.jsx"));
-const PageNotFound = lazy(() => import("./pages/PageNotFound.jsx"));
+// On commence à charger les pages en arrière plan ...
+const HomepagePromise = import("./pages/Homepage.jsx");
+const ProductPromise = import("./pages/Product.jsx");
+const PricingPromise = import("./pages/Pricing.jsx");
+const LoginPromise = import("./pages/Login.jsx");
+const AppLayoutPromise = import("./pages/AppLayout.jsx");
+const PageNotFoundPromise = import("./pages/PageNotFound.jsx");
+
+// ... et on a quand même la découpe du bundle grâce à lazy
+const Homepage = lazy(() => HomepagePromise);
+const Product = lazy(() => ProductPromise);
+const Pricing = lazy(() => PricingPromise);
+const Login = lazy(() => LoginPromise);
+const AppLayout = lazy(() => AppLayoutPromise);
+const PageNotFound = lazy(() => PageNotFoundPromise);
 
 // dist/assets/index-93dbd7c8.css   30.32 kB │ gzip:   5.07 kB
 // dist/assets/index-0b92051f.js   510.48 kB │ gzip: 149.17 kB
