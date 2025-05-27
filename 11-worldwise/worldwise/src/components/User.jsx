@@ -1,10 +1,10 @@
 import styles from "./User.module.css";
 import { useAuth } from "../contexts/FakeAuthContext.jsx";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 function User() {
   const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // function handleClick() {
   //   logout();
