@@ -7,6 +7,7 @@ import { getCurrentQuantityById } from './cartSlice.js';
 function CartItem({ item }) {
   const { pizzaId, name, quantity, totalPrice } = item;
 
+  // We could have use quantity directly
   const currentQuantity = useSelector(getCurrentQuantityById(pizzaId));
 
   return (
