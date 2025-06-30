@@ -59,6 +59,8 @@ export default cartSlice.reducer;
 // Writing Memoized Selectors with Reselect
 // https://redux.js.org/usage/deriving-data-selectors#writing-memoized-selectors-with-reselect
 
+export const getCart = (state) => state.cart.cart;
+
 export const getTotalCartQuantity = (state) =>
   state.cart.cart.reduce((sum, item) => sum + item.quantity, 0);
 
