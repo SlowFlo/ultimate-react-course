@@ -1,8 +1,3 @@
-import Input from "./Input.jsx";
-import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCabin } from "../services/apiCabins.js";
-import toast from "react-hot-toast";
 import styled from "styled-components";
 
 const StyledFormRow = styled.div`
