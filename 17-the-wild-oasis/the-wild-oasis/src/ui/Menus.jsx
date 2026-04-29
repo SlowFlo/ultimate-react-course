@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { createContext, useContext, useState } from "react";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import { createPortal } from "react-dom";
-import * as child_process from "node:child_process";
 import { useOutsideClick } from "../hooks/useOutsideClick.js";
 
 const Menu = styled.div`
