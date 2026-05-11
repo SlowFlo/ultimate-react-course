@@ -5,16 +5,12 @@ import toast from "react-hot-toast";
 
 export function useLogin() {
   const queryClient = useQueryClient();
-
   const navigate = useNavigate();
 
   const { mutate: login, isLoading } = useMutation({
     mutationFn: ({ email, password }) => loginApi({ email, password }),
-
-    onSuccess: (data) => {
-      // NOTE: call 'setQueryData', not 'setQueriesData', as Jonas suggested
-      // and we need to return ONLY 'data.user' here, not full 'data', as Jonas suggested
-      queryClient.setQueryData(["user"], data.user);
+    onSuccess: (user) => {
+      queryClient.setQueryData(["user"], user.user);
       navigate("/dashboard", { replace: true });
     },
     onError: (err) => {
