@@ -10,8 +10,11 @@ export function useLogin() {
 
   const { mutate: login, isLoading } = useMutation({
     mutationFn: ({ email, password }) => loginApi({ email, password }),
-    onSuccess: (user) => {
-      queryClient.setQueriesData(["user"], user);
+
+    onSuccess: (data) => {
+      // NOTE: call 'setQueryData', not 'setQueriesData', as Jonas suggested
+      // and we need to return ONLY 'data.user' here, not full 'data', as Jonas suggested
+      queryClient.setQueryData(["user"], data.user);
       navigate("/dashboard");
     },
     onError: (err) => {

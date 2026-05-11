@@ -12,14 +12,15 @@ export async function login({ email, password }) {
 }
 
 export async function getCurrentUser() {
-  const { data: session } = await supabase.auth.getSession();
-  if (!session.session) return null;
+  const { data: session, error: sessionError } =
+    await supabase.auth.getSession();
 
-  const { data, error } = await supabase.auth.getUser();
+  if (sessionError) throw new Error("Login error", { cause: sessionError });
+  if (!session?.session) return null;
 
-  console.log(data);
+  const { data: user, error: userError } = await supabase.auth.getUser();
 
-  if (error) throw new Error(error.message);
+  if (userError) throw new Error("Login error", { cause: userError });
 
-  return data?.user;
+  return user?.user;
 }
