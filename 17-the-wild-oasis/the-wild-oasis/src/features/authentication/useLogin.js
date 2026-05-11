@@ -15,7 +15,7 @@ export function useLogin() {
       // NOTE: call 'setQueryData', not 'setQueriesData', as Jonas suggested
       // and we need to return ONLY 'data.user' here, not full 'data', as Jonas suggested
       queryClient.setQueryData(["user"], data.user);
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
     },
     onError: (err) => {
       console.log("ERROR", err);
